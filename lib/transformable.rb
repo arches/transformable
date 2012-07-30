@@ -12,7 +12,6 @@ module Transformable
 
       define_method "#{attr}=" do |value|
 	new_value = yield(value)
-	puts new_value
 	instance_variable_set("@#{attr}", new_value)
 	begin
 	  write_attribute(attr, new_value)
