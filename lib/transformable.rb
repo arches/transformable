@@ -13,10 +13,7 @@ module Transformable
       define_method "#{attr}=" do |value|
 	new_value = yield(value)
 	instance_variable_set("@#{attr}", new_value)
-	begin
-	  write_attribute(attr, new_value)
-	rescue NoMethodError
-	end
+        write_attribute(attr, new_value) if defined? ActiveRecord and defined? ActiveRecord::Base and is_a? ActiveRecord::Base
       end
     end
   end
