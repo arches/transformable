@@ -58,6 +58,8 @@ end
  => "foo@bar.com"
 ```
 
+Transformable works on pure ruby objects as well as ActiveRecord objects!
+
 ## Contributing
 
 1. Fork it
