@@ -1,6 +1,6 @@
 # Transformable
 
-TODO: Write a gem description
+Lets you manipulate data as it's being set on an object without a lot of setter method boilerplate
 
 ## Installation
 
@@ -18,7 +18,45 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Use the `clean` method on your objects to create a setter method that manipulates inputs:
+
+```ruby
+class User < ActiveRecord::Base
+  include Transformable
+  clean(:email) {|e| e.downcase}
+end
+
+> u = User.new(email: "foo@BAR.com")
+> u.email
+ => "foo@bar.com"
+```
+
+By default, nil values won't be passed through to the block. Use the skip_nil option if you want them:
+
+```ruby
+class User < ActiveRecord::Base
+  include Transformable
+  clean(:email, :skip_nil => false) {|e| e || "example@foobar.com"}
+end
+
+> u = User.new(email: "email@email.com")
+> u.email = nil
+> u.email
+ => "example@foobar.com"
+```
+
+I use regexes for removing forbidden characters:
+
+```ruby
+class User < ActiveRecord::Base
+  include Transformable
+  clean(:email) {|e| e.gsub(/\s/, "")} # remove spaces
+end
+
+> u = User.new(email: "f o o @ b a r . c o m")
+> u.email
+ => "foo@bar.com"
+```
 
 ## Contributing
 
