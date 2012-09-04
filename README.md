@@ -2,6 +2,8 @@
 
 Lets you manipulate data as it's being set on an object without a lot of setter method boilerplate
 
+<img src="https://secure.travis-ci.org/arches/transformable.png" />
+
 ## Installation
 
 Add this line to your application's Gemfile:
